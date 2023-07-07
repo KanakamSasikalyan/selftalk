@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SelfTalk: @sasikalyan11</title>
+    <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+  <script>
+    function saveContent() {
+      var password = document.getElementById('password').value;
+      var content = document.getElementById('content').value;
+      var existingContent = localStorage.getItem('blogContent');
+      if (existingContent) {
+        existingContent += "<br>" + content;
+      } else {
+        existingContent = content;
+      }
+      localStorage.setItem('blogContent', existingContent);
+      document.getElementById('content').value = "";
+
+      // Refresh the page
+      location.reload();
+    }
+
+    function displayContent() {
+      var existingContent = localStorage.getItem('blogContent');
+      if (existingContent) {
+        document.getElementById('blogContent').innerHTML = existingContent;
+      }
+    }
+
+    function clearStorage() {
+      localStorage.clear();
+      document.getElementById('blogContent').innerHTML = "";
+    }
+
+    // Call the displayContent function when the page loads
+    window.onload = displayContent;
+
+    // Check password and enable/disable text box
+    function checkPassword() {
+      var passwordInput = document.getElementById('password');
+      var contentInput = document.getElementById('content');
+      var submitBtn = document.getElementById('submitBtn');
+      var password = passwordInput.value.trim();
+      if (password === 'Sasi@123') {
+        contentInput.disabled = false;
+        submitBtn.disabled = false;
+        clearBtn.disabled = false;
+      } else {
+        contentInput.disabled = true;
+        submitBtn.disabled = true;
+        clearBtn.disabled = true;
+      }
+    }
+  </script>
+</head>
+<body>
+    <div class="blog-main">
+        <div class="blog-head">
+            <h1>SELFTALK</h1>
+            <p>by @sasikalyan11</p>
+        </div>
+        <div class="blog-box">
+            <form onsubmit="saveContent(); return false;">
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" oninput="checkPassword()"><br><br>
+            <label for="content">What's on your mind?!</label><br>
+            <textarea id="content" name="content" rows="10" cols="50" disabled></textarea><br>
+            <button type="submit" id="submitBtn" disabled>SUBMIT</button>
+            <button id="clearBtn" onclick="clearStorage()" disabled>CLEAR</button>
+        </form>
+        </div>
+    <div id="blogContent"></div>
+    <div class="footer">
+        <ul>
+            <li><a href="https://github.com/KanakamSasikalyan">ABOUT ME</a></li>
+            <li><a href="http://instagram.com/sasikalyan11">INSTAGRAM</a></li>
+            <li><a href="http://twitter.com/sasikalyan11">TWITTER</a></li>
+            <li><a href="#">SEND YOUR STORY</a></li>
+        </ul>
+    </div>
+    </div>
+</body>
+</html>
